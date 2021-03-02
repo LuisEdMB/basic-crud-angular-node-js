@@ -1,8 +1,6 @@
-const express = require("express")
-const config = require("./config")
+const startup = require('./src/presentation/startup')
+const config = require('./config')
 
-const app = express()
-
-app.listen(config.PORT, () => {
-    console.log(`Running on port ${config.PORT}!!`)
+startup.listen({ port: config.PORT }).then(({ url }) => {
+    console.log(`🚀 Running on: ${ url }`)
 })
