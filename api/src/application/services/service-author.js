@@ -23,7 +23,7 @@ class ApplicationServiceAuthor {
         if (!existAuthor) throw new ApplicationException(`Author with ID "${ id }" not found.`)
         switch(author.process){
             case processEnums.UPDATE:
-                return this.#modifyAuthor(existAuthor)
+                return this.#modifyAuthor(existAuthor, author)
             case processEnums.ENABLE:
                 return this.#enableAuthor(existAuthor)
             case processEnums.DISABLE:
@@ -31,8 +31,8 @@ class ApplicationServiceAuthor {
         }
         return await this.author.findOne({ _id: id }).then(author => author).catch(error => { throw error })
     }
-    async #modifyAuthor(author) {
-        var existAuthor = this.serviceAuthor.modifyAuthor(author)
+    async #modifyAuthor(author, dataAuthor) {
+        var existAuthor = this.serviceAuthor.modifyAuthor(author, dataAuthor)
         await existAuthor.updateOne(existAuthor).catch(error => { throw error })
     }
     async #enableAuthor(author) {
