@@ -45,6 +45,7 @@ class AuthorType {
                 name: String
                 birth: DateTime
                 active: Boolean
+                process: Int
                 books: [BookInput]
             }
 
