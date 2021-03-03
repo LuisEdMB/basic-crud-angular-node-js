@@ -30,7 +30,7 @@ class Author {
                     required: true
                 }
             }]
-        }))
+        }, { collection: 'author' }))
     }
 }
 

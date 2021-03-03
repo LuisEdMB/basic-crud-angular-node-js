@@ -9,7 +9,7 @@ const types = new TypeGraphql()
 const resolvers = new ResolverGraphql()
 const database = new DatabaseMongodb(config.DB_SERVER, config.DB_PORT, config.DB_CATALOG)
 
-const app = new ApolloServer({ typeDefs: types.getTypes(), resolvers: resolvers.getResolvers() })
+const app = new ApolloServer({ typeDefs: types.getAllTypes(), resolvers: resolvers.getAllResolvers() })
 
 database.connect()
 

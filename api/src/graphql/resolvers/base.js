@@ -1,5 +1,4 @@
-class BaseGraphql {
-    constructor() { }
+class BaseExecuteGraphql {
     async execute(action) {
         try {
             return action()
@@ -10,4 +9,4 @@ class BaseGraphql {
     }
 }
 
-module.exports = BaseGraphql
+module.exports = BaseExecuteGraphql

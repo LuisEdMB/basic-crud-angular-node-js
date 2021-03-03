@@ -1,32 +1,20 @@
-const GraphQLDateTime = require('graphql-type-datetime')
 const  { gql } = require('apollo-server')
+const AuthorType = require('./types/author-type')
 
 class TypeGraphql {
-    constructor() { }
-    getTypes() {
+    constructor() { 
+        this.authorType = new AuthorType()
+    }
+    getAllTypes() {
         return gql`
-            scalar DateTime
-            
-            type Author {
-                id: ID,
-                name: String,
-                birth: DateTime,
-                books: [Book]
-            }
-        
-            type Book {
-                id: ID,
-                title: String,
-                abstract: String,
-                year: Int,
-                author: Author
-            }
-        
+            ${ this.authorType.getTypes() }
+
             type Query {
-                author(id: ID!): Author,
-                book(id: ID!): Book,
-                authors: [Author],
-                books: [Book]
+                ${ this.authorType.getQuery() }
+            }
+
+            type Mutation {
+                ${ this.authorType.getMutation() }
             }
         `
     }
