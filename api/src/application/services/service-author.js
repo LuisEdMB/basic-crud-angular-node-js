@@ -2,34 +2,42 @@ const AuthorModel = require('../../domain/models/author')
 const DomainServiceAuthor = require('../../domain/services/service-author')
 const ApplicationException = require('../../domain/exceptions/application-exception')
 const { processEnums } = require('../../domain/enums/enums')
+const Utils = require('../../domain/utils/utils')
 
 class ApplicationServiceAuthor {
     constructor() {
         this.author = new AuthorModel().getModel()
         this.serviceAuthor = new DomainServiceAuthor()
+        this.utils = new Utils()
     }
     async getAuthors() {
         return await this.author.find({}).then(authors => authors).catch(error => { throw error })
     }
     async getAuthorById(id) {
-        return await this.author.findOne({ _id: id }).then(author => author).catch(error => { throw error })
+        var author = await this.author.findOne({ _id: id }).then(author => author).catch(error => { throw error })
+        if (this.utils.isNullOrUndefinedOrEmpty(author)) throw new ApplicationException(`Author with ID "${ id }" not found.`)
+        return author
     }
     async createAuthor(author) {
         var newAuthor = this.serviceAuthor.createAuthor(author)
         return await newAuthor.save().then(author => author).catch(error => { throw error })
     }
     async updateAuthor(id, author) {
-        var existAuthor = await this.author.findOne({ _id: id }).then(author => author).catch(error => { throw error })
-        if (!existAuthor) throw new ApplicationException(`Author with ID "${ id }" not found.`)
+        var existAuthor = await this.getAuthorById(id)
         switch(author.process){
             case processEnums.UPDATE:
-                return this.#modifyAuthor(existAuthor, author)
+                await this.#modifyAuthor(existAuthor, author)
+                break
             case processEnums.ENABLE:
-                return this.#enableAuthor(existAuthor)
+                await this.#enableAuthor(existAuthor)
+                break
             case processEnums.DISABLE:
-                return this.#disableAuthor(existAuthor)
+                await this.#disableAuthor(existAuthor)
+                break
+            default:
+                throw new ApplicationException('Process not valid!')
         }
-        return await this.author.findOne({ _id: id }).then(author => author).catch(error => { throw error })
+        return await this.getAuthorById(id)
     }
     async #modifyAuthor(author, dataAuthor) {
         var existAuthor = this.serviceAuthor.modifyAuthor(author, dataAuthor)

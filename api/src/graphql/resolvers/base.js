@@ -1,16 +1,14 @@
 const ApplicationException = require('../../domain/exceptions/application-exception')
+const { ApolloError } = require('apollo-server') 
 
 class BaseExecuteGraphql {
     async execute(action) {
         try {
-            return action()
+            return await action()
         }
         catch(exception) {
             if (exception instanceof ApplicationException) throw exception
-            throw {
-                'message': `Server error: ${ exception }`,
-                'code': '500'
-            }
+            throw new ApolloError(`An error has ocurred on server: ${exception}`, '500')
         }
     }
 }

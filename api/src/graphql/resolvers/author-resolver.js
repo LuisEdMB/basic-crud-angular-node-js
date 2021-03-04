@@ -8,23 +8,14 @@ class AuthorResolver extends BaseExecuteGraphql{
     }
     getQuery() {
         return {
-            author: (_, args) => this.execute(() => {
-                const { id } = args
-                return this.authorService.getAuthorById(id)
-            }),
+            author: (_, { id }) => this.execute(() => this.authorService.getAuthorById(id)),
             authors: () => this.execute(() => this.authorService.getAuthors())
         }
     }
     getMutation() {
         return {
-            createAuthor: (_, args) => this.execute(() => {
-                const { author } = args
-                this.authorService.createAuthor(author)
-            }),
-            updateAuthor: (_, args) => this.execute(() => {
-                const { id, author } = args
-                this.authorService.updateAuthor(id, author)
-            })
+            createAuthor: (_, { author }) => this.execute(() => this.authorService.createAuthor(author)),
+            updateAuthor: (_, { id, author }) => this.execute(() => this.authorService.updateAuthor(id, author))
         }
     }
 }

@@ -1,7 +1,9 @@
-class ApplicationException {
+const { ApolloError } = require('apollo-server')
+
+class ApplicationException extends ApolloError {
     constructor(message, code = "01") {
-        this.message = message
-        this.code = code
+        super(message, code)
+        Object.defineProperty(this, 'name', { value: 'ApplicationException' })
     }
 }
 

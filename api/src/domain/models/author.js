@@ -3,7 +3,7 @@ const mongodb = require('mongoose')
 class Author {
     constructor() { }
     getModel() {
-        return new mongodb.model('author', new mongodb.Schema({
+        return mongodb.model('author', new mongodb.Schema({
             name: {
                 type: String,
                 required: true
@@ -31,6 +31,28 @@ class Author {
                 }
             }]
         }, { collection: 'author' }))
+    }
+    createAuthor(name, birth, books){
+        return mongodb.models.author({
+            name: name,
+            birth: birth,
+            active: true,
+            books: books
+        })
+    }
+    modifyAuthor(author, name, birth, books) {
+        author.name = name
+        author.birth = birth
+        author.books = books
+        return author
+    }
+    enableAuthor(author) {
+        author.active = true
+        return author
+    }
+    disableAuthor(author) {
+        author.active = false
+        return author
     }
 }
 
