@@ -1,0 +1,20 @@
+<mat-dialog-content class="mat-typography">
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Nombre</mat-label>
+            <input matInput>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Nacimiento</mat-label>
+            <input matInput [matDatepicker]="dp3" disabled>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </p>
+</mat-dialog-content>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Cancelar</button>
+    <button mat-button>Guardar</button>
+</div>

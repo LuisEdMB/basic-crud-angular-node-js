@@ -1,0 +1,29 @@
+@import '../assets/global';
+
+.container {
+    padding: 50px;
+}
+
+.font-title {
+    font-size: $font-size-main - 1.5;
+}
+
+.font-table-header {
+    font-size: $font-size-main - 3.5;
+}
+
+.font-table-row {
+    font-size: $font-size-main - 6.5;
+}
+
+.button {
+    margin: 5px 5px 5px 0;
+}
+
+.background-enabled {
+    background-color: $color-sub-on;
+}
+
+.background-button-add {
+    background-color: $color-on;
+}
