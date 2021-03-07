@@ -11,20 +11,20 @@
         </ng-container>
         <ng-container matColumnDef="options">
             <th mat-header-cell *matHeaderCellDef>
-                <button mat-mini-fab class="button" (click)="showModal('')" matTooltip="Crear" class="background-button-add">
+                <button mat-mini-fab (click)="showModal('')" matTooltip="Crear" class="background-button-add">
                     <mat-icon>add</mat-icon>
                 </button>
             </th>
             <td mat-cell *matCellDef="let author">
-                <button mat-mini-fab color="primary" class="button" (click)="showModal(author.id)" *ngIf='author.active'
+                <button mat-mini-fab color="primary" (click)="showModal(author.id)" *ngIf='author.active'
                     matTooltip="Editar">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-mini-fab color="warn" class="button" (click)="disableAuthor(author.id)" *ngIf='author.active'
+                <button mat-mini-fab color="warn" (click)="disableAuthor(author.id)" *ngIf='author.active'
                     matTooltip="Deshabilitar">
                     <mat-icon>close</mat-icon>
                 </button>
-                <button mat-mini-fab color="success" class="button" (click)="enableAuthor(author.id)" *ngIf='!author.active'
+                <button mat-mini-fab color="success" (click)="enableAuthor(author.id)" *ngIf='!author.active'
                     matTooltip="Habilitar">
                     <mat-icon>check</mat-icon>
                 </button>

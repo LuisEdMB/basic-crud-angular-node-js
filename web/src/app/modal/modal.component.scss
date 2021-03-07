@@ -1,0 +1,22 @@
+@import '../../assets/global';
+
+.container-modal {
+    padding: 10px;
+}
+
+.background-button-save {
+    background-color: $color-on;
+    color: white;
+}
+
+.font-sub-title {
+    font-size: $font-size-main - 3.5;
+}
+
+.button-add {
+    background-color: $color-on;
+}
+
+.input-size {
+    width: 90%;
+}

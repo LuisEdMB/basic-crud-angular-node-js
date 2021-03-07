@@ -1,20 +1,63 @@
 <mat-dialog-content class="mat-typography">
-    <p>
-        <mat-form-field appearance="standard">
-            <mat-label>Nombre</mat-label>
-            <input matInput>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field appearance="fill">
-            <mat-label>Nacimiento</mat-label>
-            <input matInput [matDatepicker]="dp3" disabled>
-            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-        </mat-form-field>
-    </p>
+    <div class="container-modal">
+        <form [formGroup]="authorForm">
+            <p>
+                <mat-form-field appearance="standard" class="input-size">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <mat-label>Nacimiento</mat-label>
+                    <input matInput [matDatepicker]="dp3" formControlName="birth">
+                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </p>
+        <h1 class="font-sub-title">Libros</h1>
+        <table>
+            <tr>
+              <th>Título</th>
+              <th>Resumen</th>
+              <th>Año</th>
+              <th>
+                <button mat-mini-fab class="button-add" (click)="addBook()" matTooltip="Agregar">
+                    <mat-icon>add</mat-icon>
+                </button>
+              </th>
+            </tr>
+            <tbody>
+                <tr formArrayName="books" *ngFor="let book of authorForm.get('books')['controls']; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <td>
+                            <mat-form-field class="input-size">
+                                <input matInput formControlName="title">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="input-size">
+                                <textarea matInput formControlName="abstract" rows="4" cols="1"></textarea>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="input-size">
+                                <input matInput type="number" formControlName="year" min="0">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <button mat-mini-fab color="warn" (click)="removeBook(i)" matTooltip="Eliminar">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+          </table>
+        </form>
+    </div>
 </mat-dialog-content>
 <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Cancelar</button>
-    <button mat-button>Guardar</button>
+    <button mat-raised-button (click)="close()" color="warn">Cancelar</button>
+    <button mat-button (click)="save()" class="background-button-save">Guardar</button>
 </div>

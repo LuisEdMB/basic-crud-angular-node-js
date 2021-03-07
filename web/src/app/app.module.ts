@@ -7,6 +7,7 @@ import { ModalComponent } from './modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from "@angular/forms"
 
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTableModule } from '@angular/material/table'
@@ -22,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { AuthorService } from '../services/author-service'
 import { DatePipe } from '@angular/common';
 import { Utils } from 'src/utils';
+import { Author, Book } from 'src/types/author';
 
 @NgModule({
   declarations: [
@@ -43,12 +45,15 @@ import { Utils } from 'src/utils';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthorService, 
     DatePipe,
-    Utils
+    Utils,
+    Author,
+    Book
   ],
   bootstrap: [AppComponent]
 })

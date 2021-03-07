@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorInterface } from '../types/author-interface'
 import { AuthorService } from '../services/author-service'
 import { MatDialog } from '@angular/material/dialog'
 import { ModalComponent } from './modal/modal.component';
+import { Author } from 'src/types/author';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,14 @@ import { ModalComponent } from './modal/modal.component';
 })
 
 export class AppComponent implements OnInit{
-  columns: String[] = ['name', 'birth', 'options']
-  authors: AuthorInterface[] = []
+  columns: string[] = ['name', 'birth', 'options']
+  authors: Author[] = []
 
   constructor(private authorService: AuthorService,
     private modal: MatDialog){ }
 
   ngOnInit() {
-    this.authorService.getAuthors().subscribe((result: AuthorInterface[]) => {
+    this.authorService.getAuthors().subscribe((result: Author[]) => {
       this.authors = result
     })
   }
@@ -26,9 +26,10 @@ export class AppComponent implements OnInit{
   showModal(id: string) {
     const modalAuthor = this.modal.open(ModalComponent, {
       data: id,
+      width: '100%',
       disableClose: true
     });
-    modalAuthor.afterClosed().subscribe();
+    modalAuthor.afterClosed().subscribe(_ => { this.ngOnInit() });
   }
 
   disableAuthor(id: string) {
